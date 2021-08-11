@@ -67,6 +67,26 @@ impl Universe {
         }
     }
 
+    pub fn from_fifty_fifty_chance() -> Universe {
+        use js_sys::Math;
+        const WIDTH: u32 = 64;
+        const HEIGHT: u32 = 64;
+        let cells = (0..WIDTH * HEIGHT)
+            .map(|_| {
+                if Math::random() < 0.5 {
+                    Cell::Alive
+                } else {
+                    Cell::Dead
+                }
+            })
+            .collect();
+        Universe {
+            width: WIDTH,
+            height: HEIGHT,
+            cells,
+        }
+    }
+
     pub fn width(&self) -> u32 {
         self.width
     }
